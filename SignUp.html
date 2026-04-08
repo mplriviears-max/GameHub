@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up - GameHub</title>
+
+<style>
+/* ===== VARIABLES ===== */
+:root{
+  --primary:#2f8d66;
+  --secondary:#343434;
+  --accent:#8f715a;
+  --dark:#1a1a1a;
+  --light:#f0f0f0;
+  --gray:#ccc;
+}
+
+/* ===== BODY ===== */
+body{
+  margin:0;
+  font-family:'Open Sans', sans-serif;
+  background:var(--dark);
+  color:var(--light);
+}
+
+/* ===== CONTAINER ===== */
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:0 20px;
+}
+
+/* ===== HEADER ===== */
+header{
+  background:var(--secondary);
+  border-bottom:3px solid var(--primary);
+  position:sticky;
+  top:0;
+  padding:1rem 0;
+}
+
+.header-flex{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1rem;
+}
+
+.logo{
+  font-weight:700;
+  font-size:2rem;
+  color:var(--primary);
+  text-decoration:none;
+}
+
+.nav-links{
+  display:flex;
+  list-style:none;
+  gap:2rem;
+}
+
+.nav-links a{
+  color:var(--light);
+  font-weight:600;
+  text-decoration:none;
+}
+
+.nav-links a:hover{
+  color:var(--primary);
+  border-bottom:3px solid var(--primary);
+  padding-bottom:0.25rem;
+}
+
+/* ===== SEARCH BAR ===== */
+.search-bar-modern{
+  display:flex;
+  align-items:center;
+  background:#2a2a2a;
+  border:2px solid var(--primary);
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.search-bar-modern input{
+  padding:0.5rem 1rem;
+  border:none;
+  background:transparent;
+  color:var(--light);
+}
+
+.search-bar-modern input:focus{
+  outline:none;
+}
+
+.search-bar-modern button{
+  background:var(--primary);
+  border:none;
+  padding:0.5rem 1rem;
+  color:white;
+  cursor:pointer;
+}
+
+.search-bar-modern button:hover{
+  background:var(--accent);
+}
+
+/* ===== SIGNUP FORM ===== */
+.signup-form{
+  background:#222;
+  padding:2rem;
+  border-radius:12px;
+  max-width:400px;
+  margin:4rem auto;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  border:2px solid var(--primary);
+}
+
+.signup-form h2{
+  text-align:center;
+  color:var(--primary);
+}
+
+.signup-form input{
+  padding:0.7rem;
+  border:none;
+  border-radius:6px;
+  background:#333;
+  color:var(--light);
+}
+
+.signup-form input:focus{
+  outline:2px solid var(--primary);
+}
+
+/* CHECKBOX */
+.checkbox-group{
+  display:flex;
+  gap:0.5rem;
+  align-items:center;
+  font-size:0.9rem;
+}
+
+/* BUTTON */
+.signup-form button{
+  background:var(--primary);
+  border:none;
+  padding:0.8rem;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  border-radius:8px;
+}
+
+.signup-form button:hover{
+  background:var(--accent);
+}
+
+/* ERROR */
+.error{
+  color:red;
+  font-size:0.9rem;
+  display:none;
+}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+  .header-flex{
+    flex-direction:column;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="container header-flex">
+    
+    <a href="Landingpage.html" class="logo">GameHub</a>
+
+    <ul class="nav-links">
+      <li><a href="Landingpage.html">Home</a></li>
+      <li><a href="explore.html">Games</a></li>
+      <li><a href="AboutUs.html">About Us</a></li>
+      <li><a href="Contact.html">Contact</a></li>
+    </ul>
+
+    <form class="search-bar-modern">
+      <input type="text" placeholder="Search games...">
+      <button type="submit">Search</button>
+    </form>
+
+  </div>
+</header>
+
+<!-- ===== SIGN UP FORM ===== -->
+<div class="container">
+  <form class="signup-form" id="signupForm">
+    <h2>Create Account</h2>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="email" id="email" placeholder="Email">
+
+    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="terms">
+      <label for="terms">I agree to Terms</label>
+    </div>
+
+    <p class="error" id="errorMsg">Error</p>
+
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  let name = document.getElementById("name").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let password = document.getElementById("password").value.trim();
+  let confirmPassword = document.getElementById("confirmPassword").value.trim();
+  let terms = document.getElementById("terms").checked;
+  let errorMsg = document.getElementById("errorMsg");
+
+  if(name === "" || email === "" || password === "" || confirmPassword === "" || !terms){
+    errorMsg.innerText = "Please fill in all fields.";
+    errorMsg.style.display = "block";
+    return;
+  }
+
+  if(password !== confirmPassword){
+    errorMsg.innerText = "Passwords do not match.";
+    errorMsg.style.display = "block";
+    return;
+  }
+
+  errorMsg.style.display = "none";
+
+  // REDIRECT
+  window.location.href = "index.html";
+});
+</script>
+
+</body>
+</html>
